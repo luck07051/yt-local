@@ -1,57 +1,24 @@
 body{
-    --interface-color: #333333;
-    --text-color: #cccccc;
-    --background-color: #000000;
-    --video-background-color: #080808;
-    --link-color-rgb: 34, 170, 255;
-    --visited-link-color-rgb: 119, 85, 255;
-}
-
-a:link {
-    color: rgb(var(--link-color-rgb));
-}
-
-a:visited {
-    color: rgb(var(--visited-link-color-rgb));
-}
-
-a:not([href]){
-    color: var(--text-color);
+    --text-color: #bcbcbc;
+    --background-color: #161616;
+    --border-color: #303030;
+    --video-background-color: #161616;
+    --link-color-rgb: 49, 135, 188;
+    --button-color: #282828;
+    --button-hover-color: #202020;
+    --input-focus-color: #161616;
 }
 
 .comment .permalink{
-    color: #ffffff;
+    color: #bcbcbc;
 }
 
 .setting-item{
-    background-color: #444444;
+    background-color: #161616;
 }
-
 
 .muted{
-    background-color: #111111;
-    color: gray;
-}
-
-.muted a:link {
-    color: #10547f;
-}
-
-.button,
-input,
-select,
-button[type=submit]{
-    color: var(--text-color);
-    background-color: #444444;
-    border: 1px solid var(--text-color);
-    border-radius: 3px;
-    padding: 2px 3px;
-}
-.button:hover,
-input:hover,
-select:hover,
-button[type=submit]:hover{
-    background-color: #222222;
+    background-color: #303030;
 }
 
 input[type="checkbox"]{

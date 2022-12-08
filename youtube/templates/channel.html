@@ -20,7 +20,7 @@
             width:200px;
         }
         .summary{
-            margin-left: 5px;
+            margin-left: 1rem;
             /* Prevent uninterupted words in description overflowing the page: https://daverupert.com/2017/09/breaking-the-grid/ */
             min-width: 0px;
         }
@@ -28,6 +28,7 @@
                 line-height: 1em;
                 max-height: 6em;
                 overflow: hidden;
+                padding: 1rem 0;
             }
 
     .channel-tabs{
@@ -35,57 +36,55 @@
         flex-wrap: wrap;
         justify-content:start;
 
-        background-color: var(--interface-color);
-        padding: 3px;
-        padding-left: 6px;
+        padding: 0.3rem;
+        align-items: center;
     }
+        .channel-tabs .channel-search > *{
+            height: 25px;
+        }
+        .channel-tabs .page-button{
+            background-color: none;
+        }
+
+
     #links-metadata{
         display: flex;
         flex-wrap: wrap;
         justify-content: start;
-        padding-bottom: 8px;
-        padding-left: 6px;
-        margin-bottom: 10px;
+        margin: 0.5rem 1.5rem;
+        align-items: center;
     }
         #links-metadata > *{
-            margin-top: 8px;
-            margin-left: 10px;
+            margin: 0 0.5rem;
         }
         #number-of-results{
             font-weight:bold;
         }
+        #links-metadata .sort-button{
+            padding: 0.3rem;
+        }
+        #links-metadata .sorted {
+            background-color: var(--button-hover-color);
+        }
+
     .content{
+        padding: 0 1rem;
     }
-    .search-content{
-        max-width: 800px;
-        margin-left: 10px;
-    }
-        .item-grid{
-            padding-left: 20px;
-        }
-        .item-list{
-            max-width:800px;
-            margin: auto;
-        }
-        .page-button-row{
-            margin-left: auto;
-            margin-right: auto;
-        }
+        .page-button-row,
         .next-previous-button-row{
-            margin-left: auto;
-            margin-right: auto;
+            margin-inline: auto;
         }
     .tab{
         padding: 5px 0px;
         width: 200px;
     }
     .channel-info{
+        padding-top: 0.5rem;
     }
-    .channel-info ul{
-        padding-left: 40px;
-    }
+    .channel-info ul,
     .channel-info h3{
-        margin-left: 40px;
+        padding-top: 1rem;
+        padding-left: 2rem;
     }
     .channel-info .description{
         white-space: pre-wrap;
@@ -94,6 +93,12 @@
     }
     .medium-item img{
         max-width: 168px;
+    }
+    .page-number {
+        text-align: center;
+        font-size: 1.3rem;
+        margin-top: 0.5rem;
+        margin-bottom: -0.3rem;
     }
 
     @media (max-width:500px){
@@ -164,31 +169,20 @@
                     <div id="number-of-results">{{ number_of_videos }} videos</div>
                 {% elif current_tab == 'playlists' %}
                     {% set sorts = [('2', 'oldest'), ('3', 'newest'), ('4', 'last video added')] %}
-                    {% if items %}
-                        <h2 class="page-number">Page {{ page_number }}</h2>
-                    {% else %}
-                        <h2 class="page-number">No items</h2>
-                    {% endif %}
-                {% elif current_tab == 'search' %}
-                    {% if items %}
-                        <h2 class="page-number">Page {{ page_number }}</h2>
-                    {% else %}
-                        <h2 class="page-number">No results</h2>
-                    {% endif %}
                 {% else %}
                     {% set sorts = [] %}
                 {% endif %}
 
                 {% for sort_number, sort_name in sorts %}
                     {% if sort_number == current_sort.__str__() %}
-                        <a class="sort-button">{{ 'Sorted by ' + sort_name }}</a>
+                        <a class="sort-button sorted">{{ sort_name }}</a>
                     {% else %}
-                        <a class="sort-button" href="{{ channel_url + '/' + current_tab + '?sort=' + sort_number }}">{{ 'Sort by ' + sort_name }}</a>
+                        <a class="sort-button" href="{{ channel_url + '/' + current_tab + '?sort=' + sort_number }}">{{ sort_name }}</a>
                     {% endif %}
                 {% endfor %}
             </div>
 
-            <nav class="{{ 'item-list' if current_tab == 'search' else 'item-grid' }}">
+            <nav class="{{ 'item-grid' }}">
                 {% for item_info in items %}
                     {{ common_elements.item(item_info, include_author=false) }}
                 {% endfor %}
@@ -203,9 +197,14 @@
                     {{ common_elements.page_buttons(number_of_pages, channel_url + '/' + current_tab, parameters_dictionary, include_ends=(current_sort.__str__() == '3')) }}
                 </nav>
             {% elif current_tab == 'playlists' or current_tab == 'search' %}
-                <nav class="next-previous-button-row">
-                    {{ common_elements.next_previous_buttons(is_last_page, channel_url + '/' + current_tab, parameters_dictionary) }}
-                </nav>
+                {% if items %}
+                    <p class="page-number">Page {{ page_number }}</p>
+                    <nav class="next-previous-button-row">
+                        {{ common_elements.next_previous_buttons(is_last_page, channel_url + '/' + current_tab, parameters_dictionary) }}
+                    </nav>
+                {% else %}
+                    <p class="page-number">No results</p>
+                {% endif %}
             {% endif %}
         </div>
     {% endif %}

@@ -2,9 +2,10 @@
 {% extends "base.html" %}
 {% import "common_elements.html" as common_elements %}
 {% block style %}
-    main > * {
-        max-width: 800px;
-        margin:auto;
+    main{
+        width: min(100% - 2rem, 800px);
+        margin-inline: auto;
+        margin-top: 1.5rem;
     }
 
     .playlist-metadata{
@@ -39,8 +40,8 @@
 
     }
         .thumbnail-box{     /* overides rule in shared.css */
-            height: 90px !important;
-            width: 120px !important;
+            height: 112px !important;
+            width: 150px !important;
         }
     @media (max-width:600px){
         .playlist-metadata{

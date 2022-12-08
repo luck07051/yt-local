@@ -12,6 +12,7 @@
         flex-direction: row;
         padding-right:0px;
     }
+
     .video-section{
         flex-grow: 1;
         padding-left: 10px;
@@ -23,33 +24,30 @@
         .video-section .page-button-row{
             justify-content: center;
         }
+
     .subscriptions-sidebar-fixed-container{
         display: none;
     }
     .subscriptions-sidebar{
-        width: 310px;
+        width: 230px;
         max-width: 100%;
-        background-color: var(--interface-color);
-        border-left: 1px solid;
-        border-left-color: var(--interface-border-color);
+        padding: 1rem;
+        border-left: 1px solid var(--border-color);
     }
         .sidebar-links{
             display:flex;
             justify-content: space-between;
-            padding-left:10px;
-            padding-right: 10px;
-            margin-top: 10px;
+            padding-bottom: 1rem;
         }
-
         .sidebar-list{
             list-style: none;
-            padding-left:10px;
-            padding-right: 10px;
+            justify-content: space-between;
+            padding-bottom: 1rem;
         }
             .sidebar-list-item{
                 display:flex;
                 justify-content: space-between;
-                margin-bottom: 5px;
+                margin-bottom: 0.5rem;
             }
                 .sub-refresh-list .sidebar-item-name{
                     text-overflow: clip;
@@ -57,7 +55,7 @@
                     overflow: hidden;
                     max-width: 200px;
                 }
-    @media (max-width:750px){
+    @media (max-width:650px){
         main{
             display: initial;
             position: relative;
@@ -77,13 +75,13 @@
                 position: fixed;
                 bottom: 0px;
                 right: 0px;
-                background-color: var(--interface-color);
+                background-color: var(--background-color);
                 height: 70px;
                 width: 310px;
                 max-width: 100%;
                 border-width: 1px 0px 0px 1px;
                 border-style: solid;
-                border-color: var(--interface-border-color);
+                border-color: var(--border-color);
             }
                 .subscriptions-sidebar-toggle-button{
                     display: block;

@@ -10,14 +10,12 @@
         --plyr-control-spacing-num: {{ '3' if video_height < 240 else '10' }}
     }
     details > summary{
-        background-color: var(--interface-color);
-        border-style: outset;
-        border-width: 2px;
         font-weight: bold;
         padding: 4px;
     }
     details > summary:hover{
-        text-decoration: underline;
+        /* text-decoration: underline; */
+        user-select: none;
     }
 
     .playability-error{
@@ -90,6 +88,12 @@
                     padding-top: calc(100%*var(--video_height)/var(--video_width));
                     height: 0px;
                 }
+                @media(min-width:1600px){
+                    #video-container-inner{
+                        padding-top: calc(87%*var(--video_height)/var(--video_width));
+                        height: 0px;
+                    }
+                }
             }
                 video{
                     background-color: var(--video-background-color);
@@ -102,6 +106,7 @@
                     height: 100%;
                 }
         .side-videos{
+            margin-top: 1rem;
             grid-row: 2 /span 3;
             max-width: 400px;
         }
@@ -172,7 +177,6 @@
                 .labels > li{
                     display: inline;
                     margin-right:5px;
-                    background-color: var(--interface-color);
                     padding: 2px 5px;
                     border-style: solid;
                     border-width: 1px;
@@ -201,8 +205,12 @@
                 #speed-control{
                     width: 65px;
                     text-align: center;
-                    background-color: var(--interface-color);
+                    background-color: var(--button-color);
                     color: var(--text-color);
+                }
+                #speed-control:focus{
+                    background-color: var(--input-focus-color);
+                    outline: var(--border-color) solid 1px;
                 }
             .video-info > .checkbox{
                 grid-area: v-checkbox;
@@ -218,20 +226,25 @@
             .video-info > .download-dropdown{
                 grid-area: v-download;
             }
-            .video-info > .description{
-                background-color:var(--interface-color);
-                margin-top:8px;
+            .video-info > .description-dropdown{
+                grid-area: v-description;
+
+            }
+            .video-info .description{
                 white-space: pre-wrap;
                 min-width: 0;
                 word-wrap: break-word;
-                grid-area: v-description;
-                padding: 5px;
+            }
+            .video-info .description-container{
+                margin-left: 1rem;
+            }
+            .video-info .description a{
+                color: rgb(var(--link-color-rgb));
             }
 
             .music-list{
                 grid-area: v-music-list;
-                background-color: var(--interface-color);
-                padding-bottom: 7px;
+                padding-bottom: 0.5rem;
             }
                 .music-list table,th,td{
                     border: 1px solid;
@@ -247,26 +260,23 @@
                 }
             .more-info{
                 grid-area: v-more-info;
-                background-color: var(--interface-color);
+                margin-bottom: 1.5rem;
             }
                 .more-info > summary{
                     font-weight: normal;
-                    border-width: 1px 0px;
-                    border-style: solid;
                 }
                 .more-info-content{
-                    padding: 5px;
+                    padding: 0.5rem;
                 }
                     .more-info-content p{
                         margin: 8px 0px;
                     }
+
         .comments-area-outer{
             grid-column: 2;
             grid-row: 3;
-            margin-top:10px;
         }
         .comments-disabled{
-            background-color: var(--interface-color);
             padding: 5px;
             font-weight: bold;
         }
@@ -288,26 +298,21 @@
                 table#transcript-table {
                     border-collapse: collapse;
                     width: 100%;
+                    margin-top: 0.5rem;
                 }
                 table#transcript-table td, th {
-                    border: 1px solid #dddddd;
+                    border: 1px solid var(--border-color);
                 }
                 div#transcript-div {
-                    background-color: var(--interface-color);
                     padding: 5px;
                 }
             .playlist{
-                border-style: solid;
-                border-width: 2px;
-                border-color: lightgray;
+                border: 1px solid var(--border-color);
                 margin-bottom: 10px;
             }
                 .playlist-header{
-                    background-color: var(--interface-color);
                     padding: 3px;
-                    border-bottom-style: solid;
-                    border-bottom-width: 2px;
-                    border-bottom-color: lightgray;
+                    border: 1px solid var(--border-color);
                 }
                     .playlist-header h3{
                         margin: 2px;
@@ -345,7 +350,6 @@
                 }
 
     .download-dropdown-content{
-        background-color: var(--interface-color);
         padding: 10px;
         list-style: none;
         margin: 0px;
@@ -356,9 +360,6 @@
             .download-link{
                 display: block;
                 background-color: rgba(var(--link-color-rgb), 0.07);
-            }
-            .download-link:visited{
-                background-color: rgba(var(--visited-link-color-rgb), 0.07);
             }
                 .format-attributes{
                     list-style: none;
@@ -561,44 +562,49 @@ Reload without invidious (for usage of new identity button).</a>
         </details>
 
 
-        <span class="description">{{ common_elements.text_runs(description)|escape|urlize|timestamps|safe }}</span>
-        <div class="music-list">
-            {% if music_list.__len__() != 0 %}
-                <hr>
-                <table>
-                    <caption>Music</caption>
-                    <tr>
-                        {% for attribute in music_attributes %}
-                            <th>{{ attribute }}</th>
-                        {% endfor %}
-                    </tr>
-                    {% for track in music_list %}
-                        <tr>
-                            {% for attribute in music_attributes %}
-                                <td>{{ track.get(attribute.lower(), '') }}</td>
+        <details class="description-dropdown">
+            <summary class="description-dropdown-label">Description</summary>
+                <div class="description-container">
+                    <span class="description">{{ common_elements.text_runs(description)|escape|urlize|timestamps|safe }}</span>
+                </div>
+                <div class="music-list">
+                    {% if music_list.__len__() != 0 %}
+                        <hr>
+                        <table>
+                            <caption>Music</caption>
+                            <tr>
+                                {% for attribute in music_attributes %}
+                                    <th>{{ attribute }}</th>
+                                {% endfor %}
+                            </tr>
+                            {% for track in music_list %}
+                                <tr>
+                                    {% for attribute in music_attributes %}
+                                        <td>{{ track.get(attribute.lower(), '') }}</td>
+                                    {% endfor %}
+                                </tr>
                             {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-        </div>
-        <details class="more-info">
-            <summary>More info</summary>
-            <div class="more-info-content">
-                <p>Tor exit node: {{ ip_address }}</p>
-                {% if invidious_used %}
-                    <p>Used Invidious as fallback.</p>
-                {% endif %}
-                <p class="allowed-countries">Allowed countries: {{ allowed_countries|join(', ') }}</p>
+                        </table>
+                    {% endif %}
+                </div>
+                <details class="more-info">
+                    <summary>More info</summary>
+                    <div class="more-info-content">
+                        <p>Tor exit node: {{ ip_address }}</p>
+                        {% if invidious_used %}
+                            <p>Used Invidious as fallback.</p>
+                        {% endif %}
+                        <p class="allowed-countries">Allowed countries: {{ allowed_countries|join(', ') }}</p>
 
-                {% if settings.use_sponsorblock_js %}
-                <ul class="more-actions">
-                <li><label><input type=checkbox id=skip_sponsors checked>skip sponsors</label> <span id=skip_n></span>
-                </ul>
-                {% endif %}
+                        {% if settings.use_sponsorblock_js %}
+                        <ul class="more-actions">
+                        <li><label><input type=checkbox id=skip_sponsors checked>skip sponsors</label> <span id=skip_n></span>
+                        </ul>
+                        {% endif %}
+                    </div>
+                </details>
             </div>
         </details>
-    </div>
 
     <div class="side-videos">
         {% if playlist %}

@@ -1,10 +1,12 @@
 body{
-    --interface-color: #dadada;
     --text-color: #222222;
     --background-color: #bcbcbc;
+    --border-color: #ffffff;
     --video-background-color: #dadada;
     --link-color-rgb: 0, 0, 238;
-    --visited-link-color-rgb: 85, 26, 139;
+    --button-color: #f0f0f0;
+    --button-hover-color: #dcdcdc;
+    --input-focus-color: #e9e9e9;
 }
 
 .comment .permalink{

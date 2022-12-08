@@ -8,7 +8,6 @@
         padding-top: 10px;
     }
         .subscriptions-import-export-form{
-            background-color: var(--interface-color);
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -16,6 +15,7 @@
             padding:10px;
             margin-left: 10px;
             margin-bottom: 10px;
+            border: 1px solid var(--border-color);
         }
             .subscriptions-import-export-form h2{
                 font-size: 1.25rem;
@@ -30,14 +30,12 @@
 
         .subscriptions-export-links{
             margin: 0px 0px 0px 20px;
-            background-color: var(--interface-color);
             list-style: none;
             max-width: 300px;
             padding:10px;
         }
 
     .sub-list-controls{
-        background-color: var(--interface-color);
         padding:15px;
         padding-top: 0px;
         padding-left: 5px;
@@ -50,39 +48,42 @@
 
     .tag-group-list{
         list-style: none;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-right: 1.5rem;
         padding: 0px;
     }
         .tag-group{
-            border-style: solid;
-            margin-bottom: 10px;
+            border-style: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+        .tag-group-name{
+            padding-left: 1.5rem;
         }
 
     .sub-list{
         list-style: none;
-        padding:10px;
+        padding: 1rem;
+        margin-left: 1.5rem;
         column-width: 300px;
         column-gap: 40px;
     }
         .sub-list-item{
             display:flex;
-            margin-bottom: 10px;
-            break-inside:avoid;
+            margin-bottom: 1rem;
+            break-inside: avoid;
+            align-items: center;
         }
         .sub-list-item:not(.muted){
-            background-color: var(--interface-color);
         }
             .tag-list{
-                margin-left:15px;
-                font-weight:bold;
+                margin-left: 1.5rem;
+                font-weight: bold;
             }
             .sub-list-item-name{
-                margin-left:15px;
+                margin-left: 0.5rem;
             }
             .sub-list-checkbox{
-                height: 1.5em;
-                min-width: 1.5em;   // need min-width otherwise browser doesn't respect the width and squishes the checkbox down when there's too many tags
+                height: 1em;
+                min-width: 1em;   // need min-width otherwise browser doesn't respect the width and squishes the checkbox down when there's too many tags
             }
 {% endblock style %}
 

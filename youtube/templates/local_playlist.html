@@ -2,42 +2,40 @@
 {% extends "base.html" %}
 {% import "common_elements.html" as common_elements %}
 {% block style %}
-    main > *{
-        width: 800px;
-        max-width: 100%;
-        margin: auto;
+    main{
+        width: min(100% - 2rem, 800px);
+        margin-inline: auto;
+        margin-top: 1.5rem;
     }
 
     .playlist-metadata{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-
-
-        margin: 15px auto;
-        padding: 7px;
-        background-color: var(--interface-color);
+        padding: 0.5rem 1rem;
     }
         .playlist-title{
-        }
-        #export-options{
-            justify-self: end;
+            margin-bottom: 0.3rem;
         }
 
-    #video-remove-container{
-        display: flex;
-        justify-content: space-between;
-        margin: 0px auto 15px auto;
-    }
-        #playlist-remove-button{
-            white-space: nowrap;
+        #playlist-actions{
+            display: flex;
+            //align-self: center;
+            justify-content: space-between;
         }
+            #video-remove-container{
+                text-align: right;
+            }
+            #export-type,
+            #playlist-export-button,
+            #video-remove-container button {
+                margin: 2px 2px;
+            }
 
     #results{
+        width: 90%;
+        margin-inline: auto;
+        margin-top: 1.5rem;
         display: grid;
         grid-auto-rows: 0fr;
-        grid-row-gap: 10px;
+        grid-row-gap: 1rem;
     }
 {% endblock style %}
 
@@ -45,22 +43,25 @@
     <div class="playlist-metadata">
         <h2 class="playlist-title">{{ playlist_name }}</h2>
 
-        <div id="export-options">
-            <form id="playlist-export" method="post">
-                <select id="export-type" name="export_format">
-                    <option value="json">JSON</option>
-                    <option value="ids">Video id list (txt)</option>
-                    <option value="urls">Video url list (txt)</option>
-                </select>
-                <button type="submit" id="playlist-export-button" name="action" value="export">Export</button>
-            </form>
+        <div id="playlist-actions">
+            <div id="export-options">
+                <form id="playlist-export" method="post">
+                    <select id="export-type" name="export_format">
+                        <option value="json">JSON</option>
+                        <option value="ids">Video id list (txt)</option>
+                        <option value="urls">Video url list (txt)</option>
+                    </select>
+                    <button type="submit" id="playlist-export-button" name="action" value="export">Export</button>
+                </form>
+            </div>
+
+            <form id="playlist-remove" action="/youtube.com/edit_playlist" method="post" target="_self"></form>
+            <div id="video-remove-container">
+                <button type="submit" name="action" value="remove_playlist" form="playlist-remove" formaction="" onclick="return confirm('You are about to permanently delete {{ playlist_name }}\n\nOnce a playlist is permanently deleted, it cannot be recovered.');">Remove playlist</button>
+                <input type="hidden" name="playlist_page" value="{{ playlist_name }}" form="playlist-edit">
+                <button type="submit" id="playlist-remove-button" name="action" value="remove" form="playlist-edit" formaction="">Remove video</button>
+            </div>
         </div>
-    </div>
-    <form id="playlist-remove" action="/youtube.com/edit_playlist" method="post" target="_self"></form>
-    <div id="video-remove-container">
-        <button type="submit" name="action" value="remove_playlist" form="playlist-remove" formaction="" onclick="return confirm('You are about to permanently delete {{ playlist_name }}\n\nOnce a playlist is permanently deleted, it cannot be recovered.');">Remove playlist</button>
-        <input type="hidden" name="playlist_page" value="{{ playlist_name }}" form="playlist-edit">
-        <button type="submit" id="playlist-remove-button" name="action" value="remove" form="playlist-edit" formaction="">Remove from playlist</button>
     </div>
     <div id="results">
         {% for video_info in videos %}

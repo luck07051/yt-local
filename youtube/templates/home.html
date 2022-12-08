@@ -1,23 +1,23 @@
 {% set page_title = title %}
 {% extends "base.html" %}
 {% block style %}
-    ul {
-        background-color: var(--interface-color);
-        padding: 20px;
-        width: 400px;
-        max-width: 100%;
-        margin: auto;
-        margin-top: 20px;
+    div#home{
+        width: min(100% - 2rem, 600px);
+        margin-inline: auto;
+        margin-top: 1.5rem;
     }
-        li {
-            margin-bottom: 10px;
-        }
+    div#home button{
+        display: block;
+        width: 100%;
+        height: 4rem;
+        font-size: 1.5rem;
+        margin: 0.5rem 0;
+    }
 {% endblock style %}
 {% block main %}
-    <ul>
-        <li><a href="/youtube.com/playlists">Local playlists</a></li>
-        <li><a href="/youtube.com/subscriptions">Subscriptions</a></li>
-        <li><a href="/youtube.com/subscription_manager">Subscription Manager</a></li>
-        <li><a href="/youtube.com/settings">Settings</a></li>
-    </ul>
+    <div id="home">
+        <a href="/youtube.com/playlists"><button type="button" class="home-button button">Playlists</button></a>
+        <a href="/youtube.com/subscriptions"><button type="button" class="home-button button">Subscriptions</button></a>
+        <a href="/youtube.com/settings"><button type="button" class="home-button button">Settings</button></a>
+    </div>
 {% endblock main %}

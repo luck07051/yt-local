@@ -27,11 +27,11 @@
     <body>
         <header>
                 <form id="site-search" action="/youtube.com/results">
-                    <a href="/youtube.com" id="home-link">Home</a>
-                    <input type="search" name="search_query" class="search-box" value="{{ search_box_value }}"
+                    <a href="/youtube.com"><button type="button" id="home-link" class="button link-button header-item">Home</button></a>
+                    <input type="search" name="search_query" class="search-box header-item" value="{{ search_box_value }}"
                         {{ "autofocus" if (request.path in ("/", "/results") or error_message) else "" }} placeholder="Type to search...">
-                    <button type="submit" value="Search" class="button search-button">Search</button>
-                    <label for="filter-dropdown-toggle-cbox" class="filter-dropdown-toggle-button button">Filter</label>
+                    <button type="submit" value="Search" class="button search-button header-item">Search</button>
+                    <label for="filter-dropdown-toggle-cbox" class="filter-dropdown-toggle-button button header-item">Filter</label>
                     <input id="filter-dropdown-toggle-cbox" type="checkbox" hidden>
                     <div class="filter-dropdown-content">
                         <h3>Sort by</h3>
@@ -99,21 +99,21 @@
 
                     </div>
                     {% if header_playlist_names is defined %}
-                        <label for="playlist-form-toggle-cbox" class="playlist-form-toggle-button button">+Playlist</label>
+                        <label for="playlist-form-toggle-cbox" class="playlist-form-toggle-button button header-item">+Playlist</label>
                     {% endif %}
                 </form>
 
             {% if header_playlist_names is defined %}
                 <input id="playlist-form-toggle-cbox" type="checkbox" hidden>
                 <form id="playlist-edit" action="/youtube.com/edit_playlist" method="post" target="_self">
-                    <input name="playlist_name" id="playlist-name-selection" list="playlist-options" type="text" placeholder="Playlist name">
+                    <input name="playlist_name" id="playlist-name-selection" class="header-item" list="playlist-options" type="text" placeholder="Playlist name">
                     <datalist id="playlist-options">
                     {% for playlist_name in header_playlist_names %}
                         <option value="{{ playlist_name }}">{{ playlist_name }}</option>
                     {% endfor %}
                     </datalist>
-                    <button type="submit" id="playlist-add-button" class="button" name="action" value="add">Add to playlist</button>
-                    <button type="reset" id="item-selection-reset" class="button">Clear selection</button>
+                    <button type="submit" id="playlist-add-button" class="button header-item" name="action" value="add">Add to playlist</button>
+                    <button type="reset" id="item-selection-reset" class="button header-item">Clear selection</button>
                 </form>
                 <script>
                     /* Takes control of the form if javascript is enabled, so that adding stuff to a playlist will not cause things to stop loading, and will display a status message. If javascript is disabled, the form will still work using regular HTML methods, but causes things on the page (such as the video) to stop loading. */

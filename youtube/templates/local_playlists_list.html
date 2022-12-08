@@ -3,20 +3,17 @@
 
 {% block style %}
 main{
-    display: flex;
-    justify-content: center;
+    width: min(100% - 2rem, 800px);
+    margin-inline: auto;
+    margin-top: 1.5rem;
 }
     ul{
-        background-color: var(--interface-color);
-        margin-top: 20px;
-        padding: 20px;
-        width: 400px;
-        max-width: 100%;
-        align-self: start;
+        padding-left: 1.5rem;
+        font-size: 1.5rem;
     }
-        li{
-            margin-bottom: 10px;
-        }
+    li{
+        padding-top: 0.5rem;
+    }
 {% endblock style %}
 
 {% block main %}
