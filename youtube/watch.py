@@ -873,6 +873,3 @@ def get_transcript(caption_path):
 
     return flask.Response(result.encode('utf-8'),
         mimetype='text/plain;charset=UTF-8')
-
-
-

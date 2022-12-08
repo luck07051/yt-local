@@ -107,4 +107,3 @@ def prefix_urlize(*args, **kwargs):
     result = old_urlize(*args, **kwargs)
     return YOUTUBE_LINK_RE.sub(r'<a href="/\1"', result)
 jinja2.filters.urlize = prefix_urlize
-

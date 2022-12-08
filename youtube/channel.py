@@ -328,4 +328,3 @@ def get_custom_c_page(custom, tab='videos'):
 @yt_app.route('/<custom>/<tab>')
 def get_toplevel_custom_page(custom, tab='videos'):
     return get_channel_page_general_url('https://www.youtube.com/' + custom, tab, request)
-

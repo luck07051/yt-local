@@ -203,4 +203,3 @@ def b64_to_bytes(data):
         data = data.decode('ascii')
     data = data.replace("%3D", "=")
     return base64.urlsafe_b64decode(data + "="*((4 - len(data)%4)%4) )
-

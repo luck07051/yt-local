@@ -224,4 +224,3 @@ def get_comments_page():
         comments_info = comments_info,
         slim = request.args.get('slim', False)
     )
-

@@ -1013,10 +1013,3 @@ def serve_subscription_thumbnail(thumbnail):
     existing_thumbnails.add(video_id)
 
     return flask.Response(image, mimetype='image/jpeg')
-
-
-
-
-
-
-
